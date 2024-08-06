@@ -3,6 +3,8 @@ package com.example.rentahome.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,5 +35,30 @@ public class UserController {
 		}
 		return modelAndView;
 	}
+
+
+		@GetMapping("/delete/{userId}")
+		public ModelAndView deleteUser(@PathVariable int userId) {
+
+			userService.deleteUser(userId);
+
+			ModelAndView modelAndView = new ModelAndView("update_user");
+
+			return modelAndView;
+		}
+
+		@GetMapping("/update_page/{userId}")
+		public ModelAndView updateUserPage(@PathVariable int userId) {
+
+			User user = userService.findByUserId(userId);
+
+			userService.updateUser(user);
+
+			ModelAndView modelAndView = new ModelAndView("update_user");
+
+			modelAndView.addObject("user", user);
+
+			return modelAndView;
+		}
     
 }
