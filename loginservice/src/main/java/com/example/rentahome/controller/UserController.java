@@ -19,6 +19,15 @@ public class UserController {
     @Autowired
 	UserService userService;
 
+	@GetMapping("/signup_page")
+	public String signupPage() {
+		
+		System.out.println("inside signupPage()");
+		
+		return "signup_page";
+	}
+
+
     @PostMapping("/login")
 	public ModelAndView login(String name, String password, HttpServletRequest request) {
 		ModelAndView modelAndView;
@@ -58,6 +67,22 @@ public class UserController {
 
 			modelAndView.addObject("user", user);
 
+			return modelAndView;
+		}
+
+		@GetMapping("/logout")
+		public ModelAndView logout(HttpServletRequest request) {
+			
+			System.out.println("inside logout...");
+			
+			HttpSession session = request.getSession(false);
+			System.out.println(((User)session.getAttribute("loggedInUser")).getName());
+			System.out.println("session id while logout is "+session.getId());
+			
+			session.invalidate();
+			
+			ModelAndView modelAndView = new ModelAndView("index");
+			
 			return modelAndView;
 		}
     

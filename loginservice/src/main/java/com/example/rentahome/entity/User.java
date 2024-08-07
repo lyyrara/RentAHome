@@ -22,9 +22,9 @@ public class User {
 	@Id
 	private int userId;
 	@Column(nullable = false, length = 30)
-	private String password;
 	private String name;
-    private String email;
+	@Column(nullable = false, length = 30)
+	private String password;
     private String role;
     
 }
