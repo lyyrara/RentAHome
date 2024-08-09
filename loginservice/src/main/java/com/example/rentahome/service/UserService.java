@@ -1,5 +1,7 @@
 package com.example.rentahome.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +28,26 @@ public class UserService {
 		return "User Deleted";
 	}
 
-	public String updateUser(User user) {
+	public String updateUser(String name, String password, String email, String role) {
+	
+		Optional<User> existingUserOpt = Optional.ofNullable(userRepository.findByNameAndPassword(name, password));
+    
+    // If the user is not found, return a "User not found" message
+    if (!existingUserOpt.isPresent()) {
+        return "User not found";
+    }
+		User existingUser = existingUserOpt.get();
 		
-		userRepository.saveAndFlush(user);
-		
+		existingUser.setName(name);
+		existingUser.setPassword(password);
+		existingUser.setEmail(email);
+		existingUser.setRole(role);
+
+		userRepository.saveAndFlush(existingUser);
+		//entityManager.clear(); // Clear the persistence context
 		return "User Updated";
+
+		
 	}
 
 	
