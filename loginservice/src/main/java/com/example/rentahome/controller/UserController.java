@@ -141,5 +141,14 @@ public class UserController {
 			
 			return modelAndView;
 		}
+
+		@GetMapping("/booking")// "/" represents the very first page of your application 
+		public String bookingPage() {
+			
+			System.out.println("inside bookingPage()");
+			
+			return "booking";//This String "index" is supposed to be the name of the html/jsp name. Do not expect
+							//"index" as a string to be returned form the server as a plain text...
+		}
     
 }

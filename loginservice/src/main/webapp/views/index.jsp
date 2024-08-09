@@ -79,7 +79,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
                         } else {
                     %>
                         <!-- If user is not logged in -->
-                        <li class="nav-item"><a class="nav-link" href="signup_page">SignUp</a></li>
+                        <li class="nav-item"><a class="nav-link" href="signup_page">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="login">Login</a></li>
                     <%
                         }
@@ -120,30 +120,30 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 					<button type="submit" class="btn btn-primary btn-lg" style="float: right;">Search</button>
 				</div>
 			</form> --%>
-            <form style="display: flex; align-items: center; flex-wrap: wrap; background-color: white; padding: 10px; font-family: Helvetica, Arial, sans-serif; font-weight: 600; color: #484848; border-radius: 5px;">
-        <div style="padding: 10px 20px; margin-left: 80px">
-            <label>WHERE</label>
-            <input type="text" placeholder="Anywhere" name="destination" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;"/>
-        </div>
-        <div style="padding: 10px 20px;">
-            <label>CHECK IN</label>
-            <input type="date" placeholder="dd-mm-yyyy" name="checkin" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;"/>
-        </div>
-        <div style="padding: 10px 20px;">
-            <label>CHECK OUT</label>
-            <input type="date" placeholder="dd-mm-yyyy" name="checkout" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;"/>
-        </div>
-        <div style="padding: 10px 20px;">
-            <label>GUESTS</label>
-            <select name="guests" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
-                <option selected>1 guest</option>
-                <option value="Adults">Adults</option>
-                <option value="Children">Children</option>
-                <option value="Infants">Infant</option>
-            </select>
-        </div>
-        <button type="submit" style="padding: 8px 16px; border: none; background-color: #007bff; color: white; font-size: 16px; border-radius: 4px;">Search</button>
-    </form>
+            <form action="/property" method="post" style="display: flex; align-items: center; flex-wrap: wrap; background-color: white; padding: 10px; font-family: Helvetica, Arial, sans-serif; font-weight: 600; color: #484848; border-radius: 5px;">
+                <div style="padding: 10px 20px; margin-left: 80px">
+                    <label>WHERE</label>
+                    <input type="text" placeholder="Anywhere" name="destination" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;"/>
+                </div>
+                <div style="padding: 10px 20px;">
+                    <label>CHECK IN</label>
+                    <input type="date" placeholder="dd-mm-yyyy" name="checkin" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;"/>
+                </div>
+                <div style="padding: 10px 20px;">
+                    <label>CHECK OUT</label>
+                    <input type="date" placeholder="dd-mm-yyyy" name="checkout" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;"/>
+                </div>
+                <div style="padding: 10px 20px;">
+                    <label>GUESTS</label>
+                    <select name="guests" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option selected>1 guest</option>
+                        <option value="Adults">Adults</option>
+                        <option value="Children">Children</option>
+                        <option value="Infants">Infant</option>
+                    </select>
+                </div>
+                <button type="submit" style="padding: 8px 16px; border: none; background-color: #007bff; color: white; font-size: 16px; border-radius: 4px;">Search</button>
+            </form>
 
             
             <%-- <form style="display: flex; align-items: center; justify-content: space-between; background-color: white; padding: 10px; font-family: Helvetica, Arial, sans-serif; font-weight: 600; color: #484848; border-radius: 5px;">
