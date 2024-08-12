@@ -299,78 +299,161 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 
 
 		<div class="container">
-  <div class="row justify-content-md-between align-items-md-center">
-    <div class="col-md-5 mb-5 mb-md-0">
-      <!-- Tabs Navigation -->
-      <ul class="nav nav-pills" id="feature-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="tab-pool" data-bs-toggle="tab" href="#pool" role="tab" data-tag="pool">Pools</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="tab-beach" data-bs-toggle="tab" href="#beach" role="tab" data-tag="beach">Beach Front</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="tab-cabin" data-bs-toggle="tab" href="#cabin" role="tab" data-tag="cabin">Cabin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="tab-view" data-bs-toggle="tab" href="#view" role="tab" data-tag="view">Amazing Views</a>
-        </li>
-      </ul>
-      <!-- End Tabs Navigation -->
+    <div class="row justify-content-md-between align-items-md-center">
+        <div class="col-md-5 mb-5 mb-md-0">
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-pills" id="feature-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tab-pool" data-bs-toggle="tab" href="#pool" role="tab" data-tag="pool">Pools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-beach" data-bs-toggle="tab" href="#beach" role="tab" data-tag="beach">Beach Front</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-cabin" data-bs-toggle="tab" href="#cabin" role="tab" data-tag="cabin">Cabin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab-view" data-bs-toggle="tab" href="#view" role="tab" data-tag="view">Amazing Views</a>
+                </li>
+            </ul>
+            <!-- End Tabs Navigation -->
+        </div>
+        <!-- Sort Dropdown -->
+        <div class="col-md-3">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort By
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                    <li><a class="dropdown-item" href="#" data-sort="rating-desc">Rating: High to Low</a></li>
+                    <li><a class="dropdown-item" href="#" data-sort="price-asc">Price: Low to High</a></li>
+                    <li><a class="dropdown-item" href="#" data-sort="price-desc">Price: High to Low</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <!-- End Col -->
-  </div>
-  <!-- End Row -->
+    <!-- End Row -->
 
-  <!-- Tab Content -->
-  <div class="tab-content mt-4" id="feature-tab-content">
-    <div class="tab-pane fade show active" id="pool" role="tabpanel" aria-labelledby="tab-pool">
-      <div class="row">
-        <% for(PropertyDTO property : propertyDTOS) { %>
-          <% if(property.getFeatures().contains("pool")) { %>
-            <div class="col-md-4 mb-3">
-              <img src="<%=property.getPictureLocation()%>" alt="Pool Image" class="img-fluid" width="100%">
+    <!-- Tab Content -->
+    <div class="tab-content mt-4" id="feature-tab-content">
+        <!-- Pools Tab -->
+        <div class="tab-pane fade show active" id="pool" role="tabpanel" aria-labelledby="tab-pool">
+            <div class="row" id="pool-properties">
+                <% 
+                    List<PropertyDTO> poolProperties = propertyDTOS.stream()
+                        .filter(p -> p.getFeatures().contains("pool"))
+                        .collect(Collectors.toList());
+
+                    for(PropertyDTO property : poolProperties) { 
+                %>
+                    <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                        <img src="<%=property.getPictureLocation()%>" alt="Pool Image" class="img-fluid" width="100%">
+                        <p>Rating: <%=property.getRating()%></p>
+                        <p>Price: <%=property.getPrice()%></p>
+                    </div>
+                <% } %>
             </div>
-          <% } %>
-        <% } %>
-      </div>
-    </div>
-    <div class="tab-pane fade" id="beach" role="tabpanel" aria-labelledby="tab-beach">
-      <div class="row">
-        <% for(PropertyDTO property : propertyDTOS) { %>
-          <% if(property.getFeatures().contains("beach")) { %>
-            <div class="col-md-4 mb-3">
-              <img src="<%=property.getPictureLocation()%>" alt="Beach Image" class="img-fluid" width="100%">
+        </div>
+
+        <!-- Beach Tabs-->
+		<!-- Tab Content -->
+    <div class="tab-content mt-4" id="feature-tab-content">
+        <!-- Pools Tab -->
+        <div class="tab-pane fade show active" id="beach" role="tabpanel" aria-labelledby="tab-beach">
+            <div class="row" id="beach-properties">
+                <% 
+                    List<PropertyDTO> beachProperties = propertyDTOS.stream()
+                        .filter(p -> p.getFeatures().contains("beach"))
+                        .collect(Collectors.toList());
+
+                    for(PropertyDTO property : beachProperties) { 
+                %>
+                    <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                        <img src="<%=property.getPictureLocation()%>" alt="beach Image" class="img-fluid" width="100%">
+                        <p>Rating: <%=property.getRating()%></p>
+                        <p>Price: <%=property.getPrice()%></p>
+                    </div>
+                <% } %>
             </div>
-          <% } %>
-        <% } %>
-      </div>
-    </div>
-    <div class="tab-pane fade" id="cabin" role="tabpanel" aria-labelledby="tab-cabin">
-      <div class="row">
-        <% for(PropertyDTO property : propertyDTOS) { %>
-          <% if(property.getFeatures().contains("cabin")) { %>
-            <div class="col-md-4 mb-3">
-              <img src="<%=property.getPictureLocation()%>" alt="Cabin Image" class="img-fluid" width="100%">
+        </div>
+        
+		 <!-- Cabin Tabs -->
+		<!-- Tab Content -->
+    <div class="tab-content mt-4" id="feature-tab-content">
+        <!-- Pools Tab -->
+        <div class="tab-pane fade show active" id="cabin" role="tabpanel" aria-labelledby="tab-cabin">
+            <div class="row" id="beach-properties">
+                <% 
+                    List<PropertyDTO> cabinProperties = propertyDTOS.stream()
+                        .filter(p -> p.getFeatures().contains("beach"))
+                        .collect(Collectors.toList());
+
+                    for(PropertyDTO property : cabinProperties) { 
+                %>
+                    <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                        <img src="<%=property.getPictureLocation()%>" alt="beach Image" class="img-fluid" width="100%">
+                        <p>Rating: <%=property.getRating()%></p>
+                        <p>Price: <%=property.getPrice()%></p>
+                    </div>
+                <% } %>
             </div>
-          <% } %>
-        <% } %>
-      </div>
-    </div>
+        </div>
+
+		<!-- Tab Content -->
+    <!-- Amazing Views Tab -->
     <div class="tab-pane fade" id="view" role="tabpanel" aria-labelledby="tab-view">
-      <div class="row">
-        <% for(PropertyDTO property : propertyDTOS) { %>
-          <% if(property.getFeatures().contains("view")) { %>
-            <div class="col-md-4 mb-3">
-              <img src="<%=property.getPictureLocation()%>" alt="View Image" class="img-fluid" width="100%">
-            </div>
-          <% } %>
-        <% } %>
-      </div>
+        <div class="row" id="view-properties">
+            <% 
+                // Filter properties that have the "view" feature
+                List<PropertyDTO> viewProperties = propertyDTOS.stream()
+                    .filter(p -> p.getFeatures().contains("view"))
+                    .collect(Collectors.toList());
+
+                for(PropertyDTO property : viewProperties) { 
+            %>
+                <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                    <img src="<%=property.getPictureLocation()%>" alt="View Image" class="img-fluid" width="100%">
+                    <p>Rating: <%=property.getRating()%></p>
+                    <p>Price: <%=property.getPrice()%></p>
+                </div>
+            <% } %>
+        </div>
     </div>
-  </div>
-  <!-- End Tab Content -->
+
+
+
+    </div>
+    <!-- End Tab Content -->
 </div>
+
+<!-- JavaScript to handle sorting -->
+<script>
+    document.querySelectorAll('.dropdown-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            const sortType = this.getAttribute('data-sort');
+            const activeTab = document.querySelector('.tab-pane.active');
+            const propertyItems = Array.from(activeTab.querySelectorAll('.property-item'));
+
+            propertyItems.sort(function (a, b) {
+                if (sortType === 'rating-desc') {
+                    return parseFloat(b.getAttribute('data-rating')) - parseFloat(a.getAttribute('data-rating'));
+                } else if (sortType === 'price-asc') {
+                    return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+                } else if (sortType === 'price-desc') {
+                    return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+                }
+            });
+
+            const parent = activeTab.querySelector('.row');
+            parent.innerHTML = '';
+            propertyItems.forEach(function (item) {
+                parent.appendChild(item);
+            });
+        });
+    });
+</script>
+
 
 
 <br><br><br>
