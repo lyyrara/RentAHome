@@ -15,9 +15,16 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ page import="com.example.rentahome.entity.*"%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.stream.Collectors" %>
+<%@ page import="com.example.rentahome.entity.PropertyDTO" %>
+
+
 <%
 	User loggedInUser = (User) session.getAttribute("loggedInUser");
+	List<PropertyDTO> propertyDTOS =(List<PropertyDTO>) session.getAttribute("propertyDTOS");
 %>
+	
 <html>
 	<head>
 		<style>
@@ -298,7 +305,7 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
 		</div><br>
 
 
-		<div class="container">
+	<div class="container">
     <div class="row justify-content-md-between align-items-md-center">
         <div class="col-md-5 mb-5 mb-md-0">
             <!-- Tabs Navigation -->
@@ -339,89 +346,90 @@ Bootstrap also gives you the ability to easily create responsive designs. -->
         <!-- Pools Tab -->
         <div class="tab-pane fade show active" id="pool" role="tabpanel" aria-labelledby="tab-pool">
             <div class="row" id="pool-properties">
-                <% 
+                <% if (propertyDTOS != null) {
                     List<PropertyDTO> poolProperties = propertyDTOS.stream()
                         .filter(p -> p.getFeatures().contains("pool"))
                         .collect(Collectors.toList());
 
-                    for(PropertyDTO property : poolProperties) { 
+                    for (PropertyDTO property : poolProperties) { 
                 %>
-                    <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
-                        <img src="<%=property.getPictureLocation()%>" alt="Pool Image" class="img-fluid" width="100%">
-                        <p>Rating: <%=property.getRating()%></p>
-                        <p>Price: <%=property.getPrice()%></p>
-                    </div>
+                <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                    <img src="<%=property.getPictureLocation()%>" alt="Pool Image" class="img-fluid" width="100%">
+                    <p>Rating: <%=property.getRating()%></p>
+                    <p>Price: <%=property.getPrice()%></p>
+                </div>
+                <% } %>
+                <% } else { %>
+                <p>No properties available.</p>
                 <% } %>
             </div>
         </div>
 
-        <!-- Beach Tabs-->
-		<!-- Tab Content -->
-    <div class="tab-content mt-4" id="feature-tab-content">
-        <!-- Pools Tab -->
-        <div class="tab-pane fade show active" id="beach" role="tabpanel" aria-labelledby="tab-beach">
+        <!-- Beach Tab -->
+        <div class="tab-pane fade" id="beach" role="tabpanel" aria-labelledby="tab-beach">
             <div class="row" id="beach-properties">
-                <% 
+                <% if (propertyDTOS != null) {
                     List<PropertyDTO> beachProperties = propertyDTOS.stream()
                         .filter(p -> p.getFeatures().contains("beach"))
                         .collect(Collectors.toList());
 
-                    for(PropertyDTO property : beachProperties) { 
+                    for (PropertyDTO property : beachProperties) { 
                 %>
-                    <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
-                        <img src="<%=property.getPictureLocation()%>" alt="beach Image" class="img-fluid" width="100%">
-                        <p>Rating: <%=property.getRating()%></p>
-                        <p>Price: <%=property.getPrice()%></p>
-                    </div>
+                <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                    <img src="<%=property.getPictureLocation()%>" alt="Beach Image" class="img-fluid" width="100%">
+                    <p>Rating: <%=property.getRating()%></p>
+                    <p>Price: <%=property.getPrice()%></p>
+                </div>
+                <% } %>
+                <% } else { %>
+                <p>No properties available.</p>
                 <% } %>
             </div>
         </div>
         
-		 <!-- Cabin Tabs -->
-		<!-- Tab Content -->
-    <div class="tab-content mt-4" id="feature-tab-content">
-        <!-- Pools Tab -->
-        <div class="tab-pane fade show active" id="cabin" role="tabpanel" aria-labelledby="tab-cabin">
-            <div class="row" id="beach-properties">
-                <% 
+        <!-- Cabin Tab -->
+        <div class="tab-pane fade" id="cabin" role="tabpanel" aria-labelledby="tab-cabin">
+            <div class="row" id="cabin-properties">
+                <% if (propertyDTOS != null) {
                     List<PropertyDTO> cabinProperties = propertyDTOS.stream()
-                        .filter(p -> p.getFeatures().contains("beach"))
+                        .filter(p -> p.getFeatures().contains("cabin"))
                         .collect(Collectors.toList());
 
-                    for(PropertyDTO property : cabinProperties) { 
+                    for (PropertyDTO property : cabinProperties) { 
                 %>
-                    <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
-                        <img src="<%=property.getPictureLocation()%>" alt="beach Image" class="img-fluid" width="100%">
-                        <p>Rating: <%=property.getRating()%></p>
-                        <p>Price: <%=property.getPrice()%></p>
-                    </div>
+                <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
+                    <img src="<%=property.getPictureLocation()%>" alt="Cabin Image" class="img-fluid" width="100%">
+                    <p>Rating: <%=property.getRating()%></p>
+                    <p>Price: <%=property.getPrice()%></p>
+                </div>
+                <% } %>
+                <% } else { %>
+                <p>No properties available.</p>
                 <% } %>
             </div>
         </div>
 
-		<!-- Tab Content -->
-    <!-- Amazing Views Tab -->
-    <div class="tab-pane fade" id="view" role="tabpanel" aria-labelledby="tab-view">
-        <div class="row" id="view-properties">
-            <% 
-                // Filter properties that have the "view" feature
-                List<PropertyDTO> viewProperties = propertyDTOS.stream()
-                    .filter(p -> p.getFeatures().contains("view"))
-                    .collect(Collectors.toList());
+        <!-- Amazing Views Tab -->
+        <div class="tab-pane fade" id="view" role="tabpanel" aria-labelledby="tab-view">
+            <div class="row" id="view-properties">
+                <% if (propertyDTOS != null) {
+                    List<PropertyDTO> viewProperties = propertyDTOS.stream()
+                        .filter(p -> p.getFeatures().contains("view"))
+                        .collect(Collectors.toList());
 
-                for(PropertyDTO property : viewProperties) { 
-            %>
+                    for (PropertyDTO property : viewProperties) { 
+                %>
                 <div class="col-md-4 mb-3 property-item" data-rating="<%=property.getRating()%>" data-price="<%=property.getPrice()%>">
                     <img src="<%=property.getPictureLocation()%>" alt="View Image" class="img-fluid" width="100%">
                     <p>Rating: <%=property.getRating()%></p>
                     <p>Price: <%=property.getPrice()%></p>
                 </div>
-            <% } %>
+                <% } %>
+                <% } else { %>
+                <p>No properties available.</p>
+                <% } %>
+            </div>
         </div>
-    </div>
-
-
-
     </div>
     <!-- End Tab Content -->
 </div>

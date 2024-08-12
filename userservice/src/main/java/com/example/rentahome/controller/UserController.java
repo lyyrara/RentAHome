@@ -1,6 +1,9 @@
 package com.example.rentahome.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.rentahome.entity.PropertyDTO;
 import com.example.rentahome.entity.User;
 import com.example.rentahome.service.UserService;
 
@@ -20,14 +24,48 @@ public class UserController {
     @Autowired
 	UserService userService;
 
-	@GetMapping("/")// "/" represents the very first page of your application 
-	public String homePage() {
+    
+    
+
+	// @GetMapping("/")// "/" represents the very first page of your application 
+	// public String homePage() {
 		
-		System.out.println("inside homePage()");
+	// 	System.out.println("inside homePage()");
 		
-		return "index";//This String "index" is supposed to be the name of the html/jsp name. Do not expect
-						//"index" as a string to be returned form the server as a plain text...
-	}
+	// 	return "index";//This String "index" is supposed to be the name of the html/jsp name. Do not expect
+	// 					//"index" as a string to be returned form the server as a plain text...
+	// }
+
+	@GetMapping("/")
+public ModelAndView homePage(HttpSession session) {
+    List<PropertyDTO> propertyDTOS = new ArrayList<>();
+    propertyDTOS.add(new PropertyDTO(
+        101, 1, "123 Ocean View, Miami, FL", "Beach Front", 
+        "2024-08-01", "2024-08-15", 4.5, 300.00, 
+        "pool", "/images/pool2.jpg"));
+
+		propertyDTOS.add(new PropertyDTO(
+			101, 1, "123 Ocean View, Miami, FL", "Beach Front", 
+			"2024-08-01", "2024-08-15", 4.5, 300.00, 
+			"beach", "/images/beach1.jpg"));
+
+    propertyDTOS.add(new PropertyDTO(
+        102, 2, "456 Mountain Retreat, Aspen, CO", "Cabin", 
+        "2024-08-01", "2024-08-10", 4.8, 250.00, 
+        "cabin", "/images/cabin1.jpg"));
+
+    propertyDTOS.add(new PropertyDTO(
+        103, 3, "789 City Escape, New York, NY", "Apartment", 
+        "2024-08-05", "2024-08-20", 4.2, 400.00, 
+        "view", "/images/view1.jpg"));
+
+    ModelAndView modelAndView = new ModelAndView("index");
+	session.setAttribute("propertyDTOS", propertyDTOS);
+    modelAndView.addObject("propertyDTOS", propertyDTOS);  // Use "propertyDTOS" to match the JSP
+
+    return modelAndView;
+}
+
 
 
 	@PostMapping("/register")
